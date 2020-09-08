@@ -10,8 +10,11 @@ cd $WORKDIR
 mkdir -p terraform.d/plugins
 cd terraform.d/plugins
 wget https://releases.hashicorp.com/terraform-provider-aws/3.5.0/terraform-provider-aws_3.5.0_linux_amd64.zip -O terraform-provider-aws_3.5.0_linux_amd64.zip
+wget https://releases.hashicorp.com/terraform-provider-vault/2.13.0/terraform-provider-vault_2.13.0_linux_amd64.zip -O terraform-provider-vault_2.13.0_linux_amd64.zip
 unzip terraform-provider-aws_3.5.0_linux_amd64.zip
+unzip terraform-provider-vault_2.13.0_linux_amd64.zip
 rm terraform-provider-aws_3.5.0_linux_amd64.zip
+rm terraform-provider-vault_2.13.0_linux_amd64.zip
 ```
 * Return to the workdir
 `cd $WORKDIR`
@@ -42,7 +45,7 @@ ADD ./terraform.d /root/.terraform.d
 
 6. Import the image in TFE
 
-`docker load bp21_tfe_worker.tar.gz`
+`docker load < bp21_tfe_worker.tar.gz`
 
 7. List image
 
@@ -50,7 +53,7 @@ ADD ./terraform.d /root/.terraform.d
 
 ```
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-bp2i_tfe_worker     latest              a619253f3fee        10 minutes ago      506MB
+bp2i_tfe_worker     latest              33ed738fd193        3 minutes ago       534MB
 ```
 
 8. Configure the alternative worker image
