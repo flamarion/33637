@@ -1,3 +1,7 @@
+The reference on the implied local directories which Terraform will look for the providers can vary according to the version.
+
+More information can be found here https://www.terraform.io/docs/commands/cli-config.html#implied-local-mirror-directories
+
 1. Preparation
 * Create the workdir 
 ```
@@ -9,13 +13,11 @@ cd $WORKDIR
 ```
 mkdir -p terraform.d/plugins
 cd terraform.d/plugins
-wget https://releases.hashicorp.com/terraform-provider-aws/3.5.0/terraform-provider-aws_3.5.0_linux_amd64.zip -O terraform-provider-aws_3.5.0_linux_amd64.zip
 wget https://releases.hashicorp.com/terraform-provider-vault/2.13.0/terraform-provider-vault_2.13.0_linux_amd64.zip -O terraform-provider-vault_2.13.0_linux_amd64.zip
-unzip terraform-provider-aws_3.5.0_linux_amd64.zip
 unzip terraform-provider-vault_2.13.0_linux_amd64.zip
-rm terraform-provider-aws_3.5.0_linux_amd64.zip
 rm terraform-provider-vault_2.13.0_linux_amd64.zip
 cd $WORKDIR
+
 ```
 
 2. Create the `Dockerfile`
@@ -37,6 +39,7 @@ ADD intermediate-ca.crt /usr/local/share/ca-certificates/
 RUN update-ca-certificates
 
 ADD ./terraform.d /root/.terraform.d
+ADD ./terraform.d/plugins /root/.terraform.d/plugins/registry.terraform.io/hashicorp/vault/2.13.0/linux_amd64
 ```
 
 3. Build image
